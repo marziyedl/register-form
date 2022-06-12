@@ -4,6 +4,9 @@ import FormStepper from "components/formik/FormStepper";
 import { FormDefaultSteps } from "constants/FormSteps";
 import PersonalInfo from "./PersonalInfo";
 import { useState } from "react";
+import AddressInfo from "./AddressInfo";
+import PaymentInfo from "./PaymentInfo";
+import SuccessPage from "./SuccessPage";
 
 function Register() {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -18,10 +21,21 @@ function Register() {
       console.log("next");
     }
   };
-
   const getCurrentStep = () => {
-    return;
+    switch (currentStep) {
+      case 0:
+        return <PersonalInfo />;
+      case 1:
+        return <AddressInfo />;
+      case 2:
+        return <PaymentInfo />;
+      case 3:
+        return <SuccessPage />;
+      default:
+        return <PersonalInfo />;
+    }
   };
+
   return (
     <Card>
       <Formik
@@ -40,15 +54,9 @@ function Register() {
               steps={FormDefaultSteps}
               currentStep={currentStep}
               loading={false}
-              onClickNext={(val) => {
-                debugger;
-                setCurrentStep(val);
-              }}
               onClickPrev={(val) => setCurrentStep(val)}
             >
-              <>
-                <PersonalInfo />
-              </>
+              {getCurrentStep()}
             </FormStepper>
           </Form>
         )}

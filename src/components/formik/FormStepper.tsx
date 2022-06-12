@@ -7,7 +7,6 @@ type StepperProps = {
   currentStep: number;
   loading: boolean;
   onClickPrev: (val: number) => void;
-  onClickNext: (val: number) => void;
   children: ReactElement<any>;
 };
 function FormStepper(props: StepperProps) {
@@ -25,7 +24,7 @@ function FormStepper(props: StepperProps) {
             <Button
               disabled={props.loading}
               color="primary"
-              onClick={() => props.onClickPrev(props.currentStep-1)}
+              onClick={() => props.onClickPrev(props.currentStep - 1)}
             >
               Back
             </Button>
