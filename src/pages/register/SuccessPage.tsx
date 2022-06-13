@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
 function SuccessPage() {
   return (
-    <div>SuccessPage</div>
-  )
+    <div>
+      Register was successfull
+      <h5>{localStorage.getItem("id")}</h5>
+    </div>
+  );
 }
 
-export default SuccessPage
+export default SuccessPage;

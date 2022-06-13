@@ -1,27 +1,41 @@
-import { Form, Formik } from "formik";
-import { Card } from "reactstrap";
+import { Form, Formik, FormikProps } from "formik";
+import { Card, CardBody } from "reactstrap";
 import FormStepper from "components/formik/FormStepper";
 import { FormDefaultSteps } from "constants/FormSteps";
 import PersonalInfo from "./PersonalInfo";
-import { useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AddressInfo from "./AddressInfo";
 import PaymentInfo from "./PaymentInfo";
 import SuccessPage from "./SuccessPage";
 import UsePost from "hooks/usePost.hooks";
+import { RegisterFormContext } from "../../hooks/register.context";
+import { FormField } from "utils/types";
 
 function Register() {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const RegisterContext = useContext(RegisterFormContext);
+
+  const [currentStep, setCurrentStep] = useState<number>(RegisterContext.step);
+
   const [postData, setPostData] = useState({
     url: "https://37f32cl571.execute-api.eu-central-1.amazonaws.com/default/wunderfleet-recruiting-backend-dev-save-payment-data",
-    callBack: () => {},
+    callBack: (value: string) => {},
     body: {},
     onError: () => {},
   });
   const { postLoading } = UsePost(postData);
-  const onFormSubmit = (values: any) => {
+  const formRef = useRef<FormikProps<any>>(null);
+
+  useEffect(() => {
+    const instance = formRef.current;
+    return () => {
+      RegisterContext.onSetData(instance?.values as FormField, currentStep);
+    };
+  }, [currentStep]);
+
+  const onFormSubmit = (values: FormField) => {
     if (currentStep === FormDefaultSteps.length - 2) {
       // submit
-      localStorage.setItem("data", values as string);
+      localStorage.setItem("data", JSON.stringify(values));
 
       setPostData({
         ...postData,
@@ -34,17 +48,16 @@ function Register() {
         onError: () => {
           console.log("err");
         },
-        callBack: () => {
+        callBack: (data) => {
+          // save id
+          localStorage.setItem("id", data);
+          // next
           setCurrentStep((s) => s + 1);
-          console.log("yesss");
         },
       });
-
-      console.log("sub");
     } else {
       // next
       setCurrentStep((s) => s + 1);
-      console.log("next");
     }
   };
   const getCurrentStep = () => {
@@ -63,34 +76,27 @@ function Register() {
   };
 
   return (
-    <Card>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          telephone: "",
-          street: "",
-          houseNumber: "",
-          zipCode: "",
-          city: "",
-          accountOwner: "",
-          iban: "",
-        }}
-        onSubmit={(values) => onFormSubmit(values)}
-      >
-        {() => (
-          <Form>
-            <FormStepper
-              steps={FormDefaultSteps}
-              currentStep={currentStep}
-              loading={postLoading}
-              onClickPrev={(val) => setCurrentStep(val)}
-            >
-              {getCurrentStep()}
-            </FormStepper>
-          </Form>
-        )}
-      </Formik>
+    <Card className="border-0">
+      <CardBody>
+        <Formik
+          initialValues={RegisterContext.formData}
+          onSubmit={(values) => onFormSubmit(values)}
+          innerRef={formRef}
+        >
+          {() => (
+            <Form autoComplete="off" className="vh-100">
+              <FormStepper
+                steps={FormDefaultSteps}
+                currentStep={currentStep}
+                loading={postLoading}
+                onClickPrev={(val) => setCurrentStep(val)}
+              >
+                {getCurrentStep()}
+              </FormStepper>
+            </Form>
+          )}
+        </Formik>
+      </CardBody>
     </Card>
   );
 }

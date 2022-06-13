@@ -44,3 +44,19 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+# Folders 
+component > common : use for components
+constansts : for constants data 
+helper : for helper such as Axios Adapter
+Pages : our pages
+routes : create Routes 
+utils : for types 
+
+
+
+# Describe possible optimizations for your code
+Custom hook , 
+# Which things could be done better, than you’ve done it?
+instead of using useContext to save the user's level in the form redux is better since it has side effects on other components

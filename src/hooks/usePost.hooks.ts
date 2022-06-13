@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 const UsePost = (
   data = {
     url: "",
-    callBack: (value: any) => {},
+    callBack: (value: string) => {},
     body: {},
     onError: (value: string) => {},
   },
@@ -28,7 +28,7 @@ const UsePost = (
     }
   };
   useEffect(() => {
-    if (didMount.current) {
+    if (didMount.current && Object.keys(data.body).length !== 0) {
       postItem();
     } else {
       didMount.current = true;
