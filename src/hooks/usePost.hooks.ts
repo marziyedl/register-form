@@ -15,7 +15,6 @@ const UsePost = (
   const postItem = async () => {
     setPostLoading(true);
     try {
-      debugger;
       await Adapter.post(data.url, data.body).then((response) => {
         data.callBack(response.data);
         setPostLoading(false);

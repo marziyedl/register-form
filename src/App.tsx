@@ -11,7 +11,6 @@ function App() {
   const [step, setStep] = useState<number>(0);
 
   const onSetData = (formvalues: FormField, currentStep: number) => {
-    debugger;
     setformData(formvalues);
     setStep(currentStep);
   };
