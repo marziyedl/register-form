@@ -1,9 +1,7 @@
 # Getting Started with Create React App
 
-This Project is a multiple steps form project with Formik and typeScript.
-## Available Scripts
-
-In the project directory, you can run:
+This Project is a multiple steps form project with Formik and typeScript. If in every step you leave to form state should b keep, I used context for save states
+## Available Script
 
 ### `npm start`
 
@@ -18,44 +16,14 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 # Folders 
-component > common : use for components
-constansts : for constants data 
-helper : for helper such as Axios Adapter
-Pages : our pages
-routes : create Routes 
-utils : for types 
+component > common : use for components.\
+constansts : for constants data .\
+helper : for helper such as Axios Adapter.\
+Pages : our pages.\
+routes : create Routes .\
+utils : for types .\
 
 
-
-# Describe possible optimizations for your code
-Custom hook , 
-# Which things could be done better, than you’ve done it?
-instead of using useContext to save the user's level in the form redux is better since it has side effects on other components
